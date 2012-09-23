@@ -1,0 +1,16 @@
+{
+  "name": "Tron",
+  "description": "Tron is a snake like game where the players have to cut each other off using motor bikes that leaves a line behind them",
+  "version": "1.0.1",
+  "icons": {
+    "16": "tron-16.png",
+    "48": "tron-48.png",
+    "128": "tron-128.png"
+  }, 
+  "permission":[],
+  "app": {
+     "launch": {
+       "local_path": "index.html"
+     }
+   }
+}

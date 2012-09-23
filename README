@@ -1,0 +1,27 @@
+Javascript Games
+================
+A collection of my javascript games I wrote back in college
+Nothing here, move on
+
+1. Tron
+   A snake like game where the players have to
+   cut off each other using motor bikes that 
+   leaves a line behind them 
+
+   Deployed to Google Chrome webstore:
+   https://chrome.google.com/webstore/detail/cikadhepdlnppjnpalcdfllampnbnilk?hl=en-US 
+
+2. Tactictoe
+   A tic tac toe game with minimax algorithm 
+
+3. Reverse-tictactoe
+   You win by trying to lose!
+   I found it online. I didn't make it.
+   I republished to Google Chrome apps
+
+   https://chrome.google.com/webstore/detail/ajjcbndeebgkbhbpdkhajiafikbajapi?hl=en-US
+
+4. Rot 
+   Simple letter substitution cipher so I could talk 
+   to my geek friend on facebook and leave people
+   wondering.

@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reverse Tic Tac Toe</title>
+    <style>
+      body { font: 9pt Arial; }
+      table { font: bold 32pt Arial Black,Arial,Sans-Serif; }
+      td { height:64; width: 64; text-align: center }
+    </style>
+    
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-6217709-9']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      
+  </head>
+  <body>
+    <center>
+      <h1>Reverse Tic Tac Toe</h1>
+      <table id="game" frame="void" rules="all">
+        <tr> <td id=0> </td> <td id=1> </td> <td id=2> </td> </tr>
+        <tr> <td id=3> </td> <td id=4> </td> <td id=5> </td> </tr>
+        <tr> <td id=6> </td> <td id=7> </td> <td id=8> </td> </tr>
+      </table>
+      <p id=msg>Try not to win </p>
+    </center>
+
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript">
+    /*
+    * This is not my code! All credits belong to the original author.
+    * http://davidbau.com/archives/2010/10/20/toe_tac_tic.html
+    *
+    * I found this game interesting so I repackaged it for Google Chrome.
+    * The algorithm I believe is a minimax algorithm
+    *   http://en.wikipedia.org/wiki/Minimax
+    */
+    var board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    $('td').click(function() {
+      // No move allowed if there is already a winner.
+      if (winner(board) != 0) return;
+
+      // The move is a number from 0 to 9.
+      var move = Number($(this).attr('id'))
+      if (board[move] != 0) return;
+      board[move] = 1;
+      $(this).html('X');
+      if (winner(board) != 0) { colorwin(); return; }
+
+      // Compute a computer response after a tiny delay.
+      setTimeout(function() {
+        var response = score(board, -1, 8).move;
+        if (response == null) return;
+        board[response] = -1;
+        setTimeout(function() {
+          $('#game td').eq(response).html('O');
+          if (winner(board) != 0) colorwin();
+        }, 500);
+      }, 0);
+    });
+
+    function colorwin() {
+      var pos = winpos(board).pos;
+      for (var j = 0; j < pos.length; ++j) {
+        $('#' + pos[j]).css('color', 'red');
+      }
+      $('#msg').html('You Won!  <a href="">Try again.</a>');
+    }
+
+    // Returns the best move for the player as an
+    // object:  { move: (the move), win: (expected winner) }.
+    function score(board, player, depth) {
+      var w = winner(board);
+      if (w != 0 || depth == 0) {
+        return {move: null, win: w};
+      }
+      var wins = {'-1': [], '0': [], '1': []};
+      // go through all the possible moves
+      for (var j = 0; j < 9; j++) {
+        if (board[j] == 0) {
+          // What if we move at spot #j?
+          var copy = board.slice(0);
+          copy[j] = player;
+          // See what the other player would want to do.
+          var result = score(copy, -player, depth - 1);
+          wins[result.win].push({move: j, win: result.win});
+        }
+      }
+      // Pick a move with the best results for this player.
+      // A win is better than a tie is better than a loss.
+      var preference = [-player, 0, player];
+      for (var j = 0; j < preference.length; j++) {
+        if (wins[preference[j]].length) {
+          return pickrandom(wins[preference[j]]);
+        }
+      }
+      return {move: null, win: 0};  // Nothing is legal.
+    }
+
+    // Tic Tac Toe rules - all possible three-in-a-rows:
+    // Board: [0,1,2]
+    //        [3,4,5]
+    //        [6,7,8]
+    var rules = [
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
+    ];
+
+    // Finds which player has a three-in-a-row on the board:
+    // Return 1 for X, -1 for O, and zero for a draw.
+    function winner(board) {
+      return winpos(board).win;
+    }
+
+    function winpos(board) {
+      for (var j = 0; j < rules.length; j++) {
+        var player = board[rules[j][0]];
+        for (var k = 1; player != 0 && k < 3; k++) {
+          if (player != board[rules[j][k]]) player = 0;
+        }
+        if (player != 0) return {win: player, pos: rules[j]};
+      }
+      return {win: 0, pos: []};
+    }
+
+    function pickrandom(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,53 @@
+<!doctype html>	
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="shortcut icon" href="favicon.ico">	
+	<title>Tac Tic Toe</title>
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/jquery.simplemodal.js" type="text/javascript"></script>
+  <script src="js/tactictoe.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+</head>
+<body>
+  <div id="about">
+    <p>A classical tic tac toe game written in javascript</p>
+
+    <p>Features:</p>
+    <ul>
+      <li>HTML5</li>
+      <li>Dynamic grid size</li>
+      <li>Negamax with alpha beta pruning algorithm</li>
+    </ul>
+  </div>
+  
+  <div id="content"> 
+
+  </div> 
+  
+  <div id="control" style="float:right">
+     <a href="#" id="aboutthis">About this game</a>
+     
+    <fieldset> 
+      <legend><span>Control Panel</span></legend> 
+      <br/>
+      Size: 
+      <input type="radio" name="size" id="size" value="3" checked>3 by 3 
+      <input type="radio" name="size" id="size" value="6">6 by 6
+      
+      <br/>
+      Difficulty: 
+      <select id="difficulty"> 
+        <option value="1">Easy
+        <option value="3">Medium
+        <option value="6">Hard
+      </select>
+      
+      <br/>
+      <a href="#" id="submit">Play!</a>
+    </fieldset> 
+  </div>
+</body>
+
+</html>

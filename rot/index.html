@@ -1,0 +1,41 @@
+<head>
+  <script type="text/javascript">
+  
+    /* translate the text area back and forth with ROT47 */
+    function translate(){
+      var doc = document.getElementById('rot');
+      doc.value = ROT47(doc.value);
+    }
+
+    /* rot47 function */
+    function ROT47(text) {
+      var R = new String()
+      R = ROTn(text,
+      "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~")
+      return R;
+    }
+    
+    /* generic rot function */
+    function ROTn(text, map) {
+      var R = new String()
+      var i, j, c, len = map.length
+      for(i = 0; i < text.length; i++) {
+        c = text.charAt(i)
+        j = map.indexOf(c)
+        if (j >= 0) {
+          c = map.charAt((j + len / 2) % len)
+        }
+        R = R + c
+      }
+      return R;
+    }
+  </script>
+</head>
+<body>
+  <center>
+    <form name="translate_form" action="" method="get">
+      <textarea id="rot" rows="20" cols="50"></textarea><br/>
+      <input type="button" value="translate" onClick="translate();"/>
+    </form>
+  </center>
+</body>
